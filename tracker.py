@@ -1,18 +1,34 @@
 import streamlit as st
 #from google.oauth2 import service_account
-#from gsheetsdb import connect
+from gsheetsdb import connect
 import numpy as np
 import pandas as pd
-#import matplotlib.pyplot as plt
 import altair as alt
 import time
+
+# Create a connection object.
+conn = connect()
+
+# Perform SQL query on the Google Sheet.
+# Uses st.cache to only rerun when the query changes or after 10 min.
+@st.cache(ttl=600)
+def run_query(query):
+    rows = conn.execute(query, headers=1)
+    return rows
+
+sheet_url = st.secrets["public_gsheets_url"]
+rows = run_query(f'SELECT * FROM "{sheet_url}"')
+
+st.title('My Fitness Tracker')
+st.subheader('Welcome back, User')
+
+# Print results.
+for row in rows:
+    st.write(f"on {row.Day} {row.Fname} lifted {row.Normalize}")
 
 @st.cache
 def normalize(weight, rep):
     pass
-
-st.title('My Fitness Tracker')
-st.subheader('Welcome back, User')
 
 addPoints = st.button('Click for Gains')
 
