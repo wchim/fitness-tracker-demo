@@ -3,9 +3,13 @@ import streamlit as st
 #from gsheetsdb import connect
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import altair as alt
 import time
+
+@st.cache
+def normalize(weight, rep):
+    continue
 
 st.title('My Fitness Tracker')
 st.subheader('Welcome back, User')
