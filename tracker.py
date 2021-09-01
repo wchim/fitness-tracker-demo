@@ -22,9 +22,14 @@ rows = run_query(f'SELECT * FROM "{sheet_url}"')
 st.title('My Fitness Tracker')
 st.subheader('Welcome back, User')
 
+days = []
+normalized = []
+
 # Print results.
 for row in rows:
-    st.write(f"on Day {row.Day} {row.Fname} lifted {row.Normalize}")
+    st.write(f"On day {row.Day} {row.Fname} lifted {row.Normalize} pounds")
+    days.append(row.Day)
+    normalized.append(row.Normalize)
 
 @st.cache
 def normalize(weight, rep):
@@ -33,8 +38,8 @@ def normalize(weight, rep):
 addPoints = st.button('Click for Gains')
 
 chart_data = pd.DataFrame({
-    'Day': ['1', '2', '3', '4', '5'],
-    'Normalized': [151.9, 245.5, 267.3, 270, 272.6]
+    'Day': [rows.Day],
+    'Normalized': normalized
 })
 
 #st.line_chart(chart_data)
