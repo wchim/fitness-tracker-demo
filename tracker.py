@@ -24,7 +24,7 @@ st.subheader('Welcome back, User')
 
 # Print results.
 for row in rows:
-    st.write(f"on {row.Day} {row.Fname} lifted {row.Normalize}")
+    st.write(f"on Day {row.Day} {row.Fname} lifted {row.Normalize}")
 
 @st.cache
 def normalize(weight, rep):
