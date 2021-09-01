@@ -9,7 +9,7 @@ import time
 
 @st.cache
 def normalize(weight, rep):
-    continue
+    pass
 
 st.title('My Fitness Tracker')
 st.subheader('Welcome back, User')
