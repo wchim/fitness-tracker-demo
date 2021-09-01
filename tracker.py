@@ -38,7 +38,7 @@ def normalize(weight, rep):
 addPoints = st.button('Click for Gains')
 
 chart_data = pd.DataFrame({
-    'Day': [rows.Day],
+    'Day': days,
     'Normalized': normalized
 })
 
@@ -48,7 +48,7 @@ basic_chart = alt.Chart(chart_data).mark_line().encode(
     x='Day',
     y='Normalized',
 ).configure_line(
-    opacity=1.0,
+    opacity=0.5,
     color='yellow'
 ).properties(
     width=700,
