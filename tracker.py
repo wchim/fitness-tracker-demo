@@ -22,6 +22,12 @@ rows = run_query(f'SELECT * FROM "{sheet_url}"')
 st.title('My Fitness Tracker')
 st.subheader('Welcome back, User')
 
+# Form
+with st.form(key='my_form'):
+    weight_input = st.text_input(label='Weight (lbs): ')
+    rep_input = st.text_input(label='Reps: ')
+    submit_button = st.form_submit_button(label='Submit')
+
 days = []
 normalized = []
 
