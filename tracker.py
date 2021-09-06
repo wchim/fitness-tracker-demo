@@ -30,7 +30,8 @@ sheet_url = st.secrets["private_gsheets_url"]
 rows = run_query(f'SELECT * FROM "{sheet_url}"')
 
 days = []
-weights = [] 
+weights = []
+users = []
 
 # Print results.
 for row in rows:
@@ -38,6 +39,7 @@ for row in rows:
     st.write(f'User {row.UserID} lifted {row.Weight} for {row.Reps} reps!')
     days.append(row.Date)
     weights.append(row.ORM)
+    users.append(row.UserID)
 
 # Write to Google Sheets
 spreadsheet_id = '10dR2sGTVPDbEZSIyfugg49khBsRvXbPP0tVzf211zTM'
@@ -87,7 +89,7 @@ if submit_button:
     days.append(timestamp)
     weights.append(orm)
 
-    fig = px.line(x=days, y=weights, color='UserID', title='User Performance Summary')
+    fig = px.line(x=days, y=weights, color=users, title='User Performance Summary')
     st.plotly_chart(fig, use_container_width=True)
 
     # New entry to write to Google Sheet
