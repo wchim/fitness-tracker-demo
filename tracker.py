@@ -45,7 +45,7 @@ range_name = 'A1:AA1000'
 service = build('sheets', 'v4', credentials=credentials)
 
 def Export_Data_To_Sheets():
-    response_date = service.spreadsheets().values().update(
+    response_date = service.spreadsheets().values().append(
         spreadsheetId=spreadsheet_id,
         valueInputOption='RAW',
         range=range_name,
