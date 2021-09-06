@@ -56,6 +56,9 @@ if submit_button:
 
     st.caption(f'Your 1-rep max is: {orm} pounds!')
 
+    days.append(timestamp)
+    weights.append(orm)
+
     fig = px.line(x=days, y=weights, title='User Performance Summary')
     st.plotly_chart(fig, use_container_width=True)
 
