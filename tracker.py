@@ -28,17 +28,17 @@ def run_query(query):
 sheet_url = st.secrets["private_gsheets_url"]
 rows = run_query(f'SELECT * FROM "{sheet_url}"')
 
-#days = []
-#weights = [] 
+days = []
+weights = [] 
 
 # Print results.
 for row in rows:
     st.write(row)
-    #st.write(f'User {row.UserID} lifted {row.Weight} for {row.Reps} reps!')
-    #days.append(row.Date)
-    #weights.append(row.ORM)
+    st.write(f'User {row.UserID} lifted {row.Weight} for {row.Reps} reps!')
+    days.append(row.Date)
+    weights.append(row.ORM)
 
-'''user_ls = ['Wayne', 'Ian']
+user_ls = ['Wayne', 'Ian']
 
 st.title('Trkkr')
 st.subheader('Welcome back, User')
@@ -99,5 +99,5 @@ if submit_button:
     table['% of ORM'] = pct
     table['Weight (lbs)'] = wt
     table['Reps'] = rp
-    st.table(table)'''
+    st.table(table)
 
