@@ -32,7 +32,8 @@ rows = run_query(f'SELECT * FROM "{sheet_url}"')
 
 # Print results.
 for row in rows:
-    st.write(f'User {row.UserID} lifted {row.Weight} for {row.Reps} reps!')
+    st.write(row)
+    #st.write(f'User {row.UserID} lifted {row.Weight} for {row.Reps} reps!')
     #days.append(row.Date)
     #weights.append(row.ORM)
 
