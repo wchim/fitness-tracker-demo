@@ -38,6 +38,23 @@ for row in rows:
     days.append(row.Date)
     weights.append(row.ORM)
 
+# Write to Google Sheets
+spreadsheet_id = '10dR2sGTVPDbEZSIyfugg49khBsRvXbPP0tVzf211zTM'
+range_name = 'A1:AA1000'
+service = build('sheets', 'v4', credentials=credentials)
+sheet = service.spreadsheets()
+
+def Export_Data_To_Sheets():
+    response_date = service.spreadsheets().values().update(
+        spreadsheetId=spreadsheet_id,
+        valueInputOption='RAW',
+        range=range_name,
+        body=dict(
+            majorDimension='ROWS',
+            values=write.T.reset_index().T.values.tolist())
+    ).execute()
+    print('Sheet successfully Updated')
+
 user_ls = ['Wayne', 'Ian']
 
 st.title('Trkkr')
@@ -87,6 +104,7 @@ if submit_button:
     }, ignore_index=True)
 
     st.table(write)
+    Export_Data_To_Sheets()
 
     # 1-rep max distribution table
     pct = []
