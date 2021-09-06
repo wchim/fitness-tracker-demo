@@ -56,24 +56,14 @@ if submit_button:
 
     st.caption(f'Your 1-rep max is: {orm} pounds!')
 
+    # Building graph to update new 
     days.append(timestamp)
     weights.append(orm)
 
     fig = px.line(x=days, y=weights, title='User Performance Summary')
     st.plotly_chart(fig, use_container_width=True)
 
-    pct = []
-    wt = []
-    rp = [1, 2, 4, 6, 8, 10, 12, 16, 20, 24, 30]
-    for i in range(100, 45, -5):
-        pct.append(str(i) + '%')
-        wt.append(i/100*orm)
-
-    table['% of ORM'] = pct
-    table['Weight (lbs)'] = wt
-    table['Reps'] = rp
-    st.table(table)
-
+    # New entry to write to Google Sheet
     write = pd.DataFrame(columns={'Date', 'UserID', 'Lift', 'Weight', 'Reps', 'ORM', 'IngestionType'})
     write = write[['Date', 'UserID', 'Lift', 'Weight', 'Reps', 'ORM', 'IngestionType']]
 
@@ -87,4 +77,17 @@ if submit_button:
     }, ignore_index=True)
 
     st.table(write)
+
+    # 1-rep max distribution table
+    pct = []
+    wt = []
+    rp = [1, 2, 4, 6, 8, 10, 12, 16, 20, 24, 30]
+    for i in range(100, 45, -5):
+        pct.append(str(i) + '%')
+        wt.append(i/100*orm)
+
+    table['% of ORM'] = pct
+    table['Weight (lbs)'] = wt
+    table['Reps'] = rp
+    st.table(table)
 
