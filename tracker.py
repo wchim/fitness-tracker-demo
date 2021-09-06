@@ -1,5 +1,5 @@
 import streamlit as st
-#from google.oauth2 import service_account
+from google.oauth2 import service_account
 from gsheetsdb import connect
 import numpy as np
 import pandas as pd
@@ -7,7 +7,15 @@ import plotly.express as px
 from datetime import datetime
 
 # Create a connection object.
-conn = connect()
+credentials = service_account.Credentials.from_service_account_info(
+    st.secrets["gcp_service_account"],
+    scopes=[
+        "https://www.googleapis.com/auth/spreadsheets",
+    ],
+)
+
+# Create a connection object.
+conn = connect(credentials=credentials)
 
 # Perform SQL query on the Google Sheet.
 # Uses st.cache to only rerun when the query changes or after 10 min.
@@ -16,7 +24,7 @@ def run_query(query):
     rows = conn.execute(query, headers=1)
     return rows
 
-sheet_url = st.secrets["public_gsheets_url"]
+sheet_url = st.secrets["private_gsheets_url"]
 rows = run_query(f'SELECT * FROM "{sheet_url}"')
 
 days = []
