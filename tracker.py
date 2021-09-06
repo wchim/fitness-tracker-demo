@@ -43,7 +43,6 @@ for row in rows:
 spreadsheet_id = '10dR2sGTVPDbEZSIyfugg49khBsRvXbPP0tVzf211zTM'
 range_name = 'A1:AA1000'
 service = build('sheets', 'v4', credentials=credentials)
-sheet = service.spreadsheets()
 
 def Export_Data_To_Sheets():
     response_date = service.spreadsheets().values().update(
