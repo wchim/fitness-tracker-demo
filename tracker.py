@@ -19,7 +19,7 @@ conn = connect(credentials=credentials)
 
 # Perform SQL query on the Google Sheet.
 # Uses st.cache to only rerun when the query changes or after 10 min.
-@st.cache(ttl=600, hash_funcs={FooType: hash})
+@st.cache(ttl=600, hash_funcs={pd.DataFrame: lambda _: None})
 def run_query(query):
     rows = conn.execute(query, headers=1)
     return rows
