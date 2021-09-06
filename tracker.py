@@ -88,7 +88,7 @@ if submit_button:
     weights.append(orm)
 
     fig = px.line(x=days, y=weights, title='User Performance Summary')
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, color='UserID', use_container_width=True)
 
     # New entry to write to Google Sheet
     write = pd.DataFrame(columns={'Date', 'UserID', 'Lift', 'Weight', 'Reps', 'ORM', 'IngestionType'})
