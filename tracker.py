@@ -25,7 +25,7 @@ weights = []
 # Print results.
 for row in rows:
     st.write(f'User {row.UserID} lifted {row.Weight} for {row.Reps} reps!')
-    days.append(row.Date.day)
+    days.append(row.Date)
     weights.append(row.ORM)
 
 user_ls = ['Wayne', 'Ian']
