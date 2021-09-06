@@ -51,7 +51,7 @@ def Export_Data_To_Sheets():
         range=range_name,
         body=dict(
             majorDimension='ROWS',
-            values=tmp.T.reset_index().T.values.tolist())
+            values=write.values.tolist())
     ).execute()
     print('Sheet successfully Updated')
 
@@ -94,18 +94,17 @@ if submit_button:
     write = pd.DataFrame(columns={'Date', 'UserID', 'Lift', 'Weight', 'Reps', 'ORM', 'IngestionType'})
     write = write[['Date', 'UserID', 'Lift', 'Weight', 'Reps', 'ORM', 'IngestionType']]
 
-    tmp = {'Date': timestamp,
+    write = write.append({'Date': timestamp,
                   'UserID': uid,
                   'Lift': lift,
                   'Weight': weight_input,
                   'Reps': rep_input,
                   'ORM': orm,
                   'IngestionType': ingestion
-    }
-    write = write.append(tmp, ignore_index=True)
+    }, ignore_index=True)
 
     st.table(write)
-    tmp['Date'] = tmp['Date'].astype(str)
+    write['Date'] = write['Date'].astype(str)
     Export_Data_To_Sheets()
 
     # 1-rep max distribution table
