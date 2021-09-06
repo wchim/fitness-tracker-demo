@@ -33,10 +33,10 @@ weights = []
 # Print results.
 for row in rows:
     st.write(f'User {row.UserID} lifted {row.Weight} for {row.Reps} reps!')
-    days.append(row.Date)
-    weights.append(row.ORM)
+    #days.append(row.Date)
+    #weights.append(row.ORM)
 
-user_ls = ['Wayne', 'Ian']
+'''user_ls = ['Wayne', 'Ian']
 
 st.title('Trkkr')
 st.subheader('Welcome back, User')
@@ -71,7 +71,7 @@ if submit_button:
     fig = px.line(x=days, y=weights, title='User Performance Summary')
     st.plotly_chart(fig, use_container_width=True)
 
-    '''# New entry to write to Google Sheet
+    # New entry to write to Google Sheet
     write = pd.DataFrame(columns={'Date', 'UserID', 'Lift', 'Weight', 'Reps', 'ORM', 'IngestionType'})
     write = write[['Date', 'UserID', 'Lift', 'Weight', 'Reps', 'ORM', 'IngestionType']]
 
