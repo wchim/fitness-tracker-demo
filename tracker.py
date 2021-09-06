@@ -3,7 +3,7 @@ import streamlit as st
 from gsheetsdb import connect
 import numpy as np
 import pandas as pd
-import altair as alt
+import plotly.express as px
 from datetime import datetime
 
 # Create a connection object.
@@ -19,8 +19,14 @@ def run_query(query):
 sheet_url = st.secrets["public_gsheets_url"]
 rows = run_query(f'SELECT * FROM "{sheet_url}"')
 
-spreadsheet_id = '10dR2sGTVPDbEZSIyfugg49khBsRvXbPP0tVzf211zTM'
-range_name = 'A1:AA1000'
+days = []
+weights = [] 
+
+# Print results.
+for row in rows:
+    st.write(f'User {row.UserID} lifted {row.Weight} for {row.Reps} reps!')
+    days.append(row.Date.day)
+    weights.append(row.ORM)
 
 user_ls = ['Wayne', 'Ian']
 
@@ -50,6 +56,9 @@ if submit_button:
 
     st.caption(f'Your 1-rep max is: {orm} pounds!')
 
+    fig = px.line(x=days, y=weights, title='User Performance Summary')
+    st.plotly_chart(fig, use_container_width=True)
+
     pct = []
     wt = []
     rp = [1, 2, 4, 6, 8, 10, 12, 16, 20, 24, 30]
@@ -75,29 +84,4 @@ if submit_button:
     }, ignore_index=True)
 
     st.table(write)
-
-
-'''# Print results.
-for row in rows:
-    st.write(f"On day {row.Day} {row.Fname} lifted {row.Normalize} pounds")
-    days.append(row.Day)
-    normalized.append(row.Normalize)'''
-
-def Export_Data_To_Sheets():
-    response_date = service.spreadsheets().values().update(
-        spreadsheetId=spreadsheet_id,
-        valueInputOption='RAW',
-        range=range_name,\
-        body=dict(
-            majorDimension='ROWS',
-            values=write.T.reset_index().T.values.tolist())
-    ).execute()
-    print('Sheet successfully Updated')
-
-Export_Data_To_Sheets()
-#a = st.sidebar.radio('R:',[1,2])
-
-#st.slider('Slide me', min_value=0, max_value=10)
-
-#st.select_slider('Slide to select', options=[1,'2'])
 
