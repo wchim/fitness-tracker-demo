@@ -88,6 +88,7 @@ if submit_button:
     # Building graph to update new 
     days.append(timestamp)
     weights.append(orm)
+    users.append(uid)
 
     tmp['days'] = days
     tmp['weights'] = weights
