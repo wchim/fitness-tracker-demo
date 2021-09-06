@@ -57,7 +57,7 @@ def Export_Data_To_Sheets():
     ).execute()
     print('Sheet successfully Updated')
 
-user_ls = ['Wayne', 'Ian']
+tmp = pd.DataFrame(columns={'days', 'weights', 'users'})
 
 st.title('Trkkr')
 st.subheader('Welcome back, User')
@@ -73,7 +73,7 @@ with st.form(key='my_form'):
 
 if submit_button:
     timestamp = datetime.now()
-    st.write(f'{user_ls[int(uid)]} lifted {int(weight_input)} pounds {int(rep_input)} times for {lift} on {timestamp}.')
+    #st.write(f'{user_ls[int(uid)]} lifted {int(weight_input)} pounds {int(rep_input)} times for {lift} on {timestamp}.')
 
     table = pd.DataFrame(columns={'% of ORM', 'Weight (lbs)', 'Reps'})
     table = table[['% of ORM', 'Weight (lbs)', 'Reps']]
@@ -89,7 +89,11 @@ if submit_button:
     days.append(timestamp)
     weights.append(orm)
 
-    fig = px.line(x=days, y=weights, color=users, title='User Performance Summary')
+    tmp['days'] = days
+    tmp['weights'] = weights
+    tmp['users'] = users
+
+    fig = px.line(tmp, x='days', y='weights', color='users', title='User Performance Summary')
     st.plotly_chart(fig, use_container_width=True)
 
     # New entry to write to Google Sheet
