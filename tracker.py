@@ -71,7 +71,7 @@ if submit_button:
     fig = px.line(x=days, y=weights, title='User Performance Summary')
     st.plotly_chart(fig, use_container_width=True)
 
-    # New entry to write to Google Sheet
+    '''# New entry to write to Google Sheet
     write = pd.DataFrame(columns={'Date', 'UserID', 'Lift', 'Weight', 'Reps', 'ORM', 'IngestionType'})
     write = write[['Date', 'UserID', 'Lift', 'Weight', 'Reps', 'ORM', 'IngestionType']]
 
@@ -97,5 +97,5 @@ if submit_button:
     table['% of ORM'] = pct
     table['Weight (lbs)'] = wt
     table['Reps'] = rp
-    st.table(table)
+    st.table(table)'''
 
