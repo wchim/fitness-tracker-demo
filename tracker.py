@@ -104,6 +104,7 @@ if submit_button:
     }, ignore_index=True)
 
     st.table(write)
+    write['Date'] = write['Date'].datetime.strftime('%Y-%m-%d %H:%M:%S')
     Export_Data_To_Sheets(write)
 
     # 1-rep max distribution table
